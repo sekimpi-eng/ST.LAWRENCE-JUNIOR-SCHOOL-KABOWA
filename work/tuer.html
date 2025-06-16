@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ST.LAWRENCE JUNIOR SCHOOL-KABOWA</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- <link href="script1.js" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<body>
+
+    <div class="container my-5">
+        <div class="download-work-section">
+            <h2>Download School Work</h2>
+    
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="classDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Class
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="classDropdown">
+                    <li><a class="dropdown-item" href="#" data-class="p5">P.5</a></li>
+                    </ul>
+            </div>
+    
+            <div id="workContentSection" class="content-section" style="display:none;">
+                <h3>P.5 Work</h3>
+                <div id="workContentBody"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const classWork = {
+            p5: [
+                // ... (your data for P5 work)
+            ],
+            // ... (data for other classes)
+        };
+    
+        document.querySelectorAll('#classDropdown .dropdown-item').forEach(item => {
+            item.addEventListener('click', function (event) {
+                event.preventDefault();
+                const selectedClass = this.getAttribute('data-class');
+                const workContentSection = document.getElementById('workContentSection');
+                const workContentBody = document.getElementById('workContentBody');
+    
+                if (classWork[selectedClass]) {
+                    workContentSection.style.display = 'block';
+                    workContentBody.innerHTML = ""; // Clear previous content
+    
+                    classWork[selectedClass].forEach(work => {
+                        const workItem = document.createElement('div'); // Create a div for each work item
+                        workItem.className = "work-item"; // Add the work-item class
+    
+                        const link = document.createElement('a');
+                        link.href = work.link;
+                        link.download = ""; // Important for triggering download
+                        link.innerHTML = `<img src="pdf_icon.png" alt="PDF Icon" width="32" height="32"> ${work.title}`;
+    
+                        const fileDetails = document.createElement('span');
+                        fileDetails.className = "file-details";
+                        fileDetails.innerHTML = `<span class="file-type">${work.fileType.toUpperCase()}</span> | <span class="file-size">${work.fileSize}</span>`;
+    
+                        workItem.appendChild(link); // Add link to workItem
+                        workItem.appendChild(fileDetails); // Add file details to workItem
+                        workContentBody.appendChild(workItem); // Add workItem to workContentBody
+                    });
+                } else {
+                    workContentSection.style.display = 'none';
+                    workContentBody.innerHTML = "";
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>
